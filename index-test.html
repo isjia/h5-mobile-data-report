@@ -4,21 +4,46 @@
   <meta charset="UTF-8">
   <title>H5 Test</title>
 </head>
+<style>
+  body{
+    margin: 0;
+    padding: 0;
+  }
+</style>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script src="bower_components/fullpage.js/dist/jquery.fullpage.min.js"></script>
 
 <body>
   <div id="fullpage">
-    <div class="section">Page 1</div>
-    <div class="section">Page 2</div>
-    <div class="section">Page 3</div>
-    <div class="section">Page 4</div>
+    <div class="section page" id="page1">Page 1</div>
+    <div class="section page" id="page2">Page 2</div>
+    <div class="section page" id="page3">Page 3</div>
+    <div class="section page" id="page4">Page 4</div>
   </div>
 </body>
 <script>
   $(document).ready(function() {
-    $('#fullpage').fullpage();
+    $('#fullpage').fullpage({
+      'sectionsColor': ['#254875', '#00FF00', '#254587', '#695684'],
+      'anchors':['firstPage', 'secondPage', 'thirdPage', 'forthPage'],
+      onLeave: function(index, nextIndex, direction){
+        $('#fullpage').find('.page').eq(index-1).trigger('onLeave');
+      },
+      afterLoad: function(anchorLink, index){
+        $('#fullpage').find('.page').eq(index-1).trigger('onLoad');
+
+      }
+    });
+    // 离开页面时触发
+    $('.page').on('onLeave', function(){
+      console.log( $(this).attr('id') , '===>', 'onLeave');
+    });
+
+    // 页面加载后触发
+    $('.page').on('onLoad', function(){
+      console.log( $(this).attr('id') , '===>', 'onLoad');
+    });
   });
 </script>
 </html>
