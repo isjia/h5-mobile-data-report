@@ -1,0 +1,75 @@
+<!-- 用于开发测试 H5ComponentLine Class （折线图组件） -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test H5ComponentLine Class</title>
+  <style type="text/css">
+    body{
+      margin:0;
+      padding: 0;
+      background-color: #000;
+      font-size: 12px;
+    }
+    .iphone{
+      width:320px;
+      height:540px;
+      background-color: #fff;
+      position:absolute;
+      left:50%;
+      top:50%;
+      margin: -270px 0 0 -160px;
+    }
+  </style>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="js/H5ComponentBase.js"></script>
+  <link rel="stylesheet" href="css/H5ComponentBase.css">
+
+  <script src="js/H5ComponentLine.js"></script>
+  <link rel="stylesheet" href="css/H5ComponentLine.css">
+
+</head>
+<body>
+  <div class="iphone">
+  </div>
+  <script>
+    var cfg = {
+      type: 'line',
+      width: 514,
+      height: 306,
+      css: {
+        left: 50,
+        top: 100,
+        opacity: 1
+      },
+      data: [
+        ['JS', .4, 'green'],
+        ['HTML5', .25, 'yellow'],
+        ['CSS3', .50, 'red'],
+        ['jQuery', .15, 'red'],
+        ['React', .64],
+        ['Meteor', .37],
+
+      ],
+      animateIn: {
+        bottom: 80,
+        opacity: 1
+      },
+      animateOut: {
+        bottom: 0,
+        opacity: 0
+      },
+      center: true
+    }
+    var h5 = new H5ComponentLine("myLine", cfg);
+    $('.iphone').append(h5);
+
+    // 测试点击body，出发component onLoad/onLeave 事件
+    var leave = true;
+    $('body').click(function(){
+      leave = !leave;
+      $('.h5_component').trigger( leave ? 'onLeave' : 'onLoad');
+    })
+  </script>
+</body>
+</html>
